@@ -1,5 +1,5 @@
+# config/application.rb
 require_relative "boot"
-
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
@@ -16,6 +16,16 @@ module HelloRailsBackEnd
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
 
+    # Set up CORS (Cross-Origin Resource Sharing) middleware
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        # Update with the origin of your React app
+        origins 'http://localhost:3001'
+        # Allow any HTTP method and include any headers
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      end
+    end
+    
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
